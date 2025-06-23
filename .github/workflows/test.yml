@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: zigtools/zls
+          ref: "0.14.0"
           path: zls
 
       - name: Install dependencies
@@ -24,12 +25,12 @@ jobs:
             build-essential cmake python3 git \
             libstdc++-12-dev curl xz-utils pkg-config
 
-      - name: Download Zig 0.14.1 binary bootstrap
+      - name: Download Zig 0.14.0 binary
         run: |
-          curl -LO https://ziglang.org/download/0.14.1/zig-x86_64-linux-0.14.1.tar.xz
-          tar -xf zig-x86_64-linux-0.14.1.tar.xz
-          #mv zig-x86_64-linux-0.14.1 zig-bootstrap
-          echo "${PWD}/zig-x86_64-linux-0.14.1" >> $GITHUB_PATH
+          curl -LO https://ziglang.org/download/0.14.0/zig-linux-x86_64-0.14.0.tar.xz
+          tar -xf zig-linux-x86_64-0.14.0.tar.xz
+          #mv zig-linux-x86_64-0.14.0 zig-bootstrap
+          echo "${PWD}/zig-linux-x86_64-0.14.0" >> $GITHUB_PATH
 
       #- name: Build Zig 0.14.1 from source
       #  run: |
