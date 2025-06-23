@@ -28,20 +28,21 @@ jobs:
         run: |
           curl -LO https://ziglang.org/download/0.14.1/zig-x86_64-linux-0.14.1.tar.xz
           tar -xf zig-x86_64-linux-0.14.1.tar.xz
-          mv zig-x86_64-linux-0.14.1 zig-bootstrap
+          #mv zig-x86_64-linux-0.14.1 zig-bootstrap
+          echo "${PWD}/zig-x86_64-linux-0.14.1" >> $GITHUB_PATH
 
-      - name: Build Zig 0.14.1 from source
-        run: |
-          git clone --branch 0.14.1 https://github.com/ziglang/zig.git
-          cd zig
-          ../zig-bootstrap/zig build -Drelease-safe
-          # Optionally, add to PATH
-          echo "$PWD/zig-out/bin" >> $GITHUB_PATH
+      #- name: Build Zig 0.14.1 from source
+      #  run: |
+      #    git clone --branch 0.14.1 https://github.com/ziglang/zig.git
+      #    cd zig
+      #    zig build -Drelease-safe
+      #    # Optionally, add to PATH
+      #    echo "$PWD/zig-out/bin" >> $GITHUB_PATH
 
       - name: Build ZLS with newly built Zig
         run: |
           cd zls
-          ../zig/zig-out/bin/zig build -Drelease-safe
+          zig build -Drelease-safe
 
       - name: Archive ZLS binary
         uses: actions/upload-artifact@v4
