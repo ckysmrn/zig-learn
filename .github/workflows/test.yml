@@ -43,7 +43,7 @@ jobs:
       - name: Build ZLS with newly built Zig
         run: |
           cd zls
-          zig build -Drelease-safe
+          zig build -Doptimize=ReleaseSafe
 
       - name: Archive ZLS binary
         uses: actions/upload-artifact@v4
