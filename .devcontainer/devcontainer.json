@@ -1,0 +1,17 @@
+
+{
+  "name": "Zig Dev",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "forwardPorts": [8080],
+  "postCreateCommand": "zls --listen 0.0.0.0:8080 &",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ziglang.vscode-zig"
+      ]
+    }
+  },
+  "remoteUser": "vscode"
+}
