@@ -14,11 +14,11 @@ RUN apt-get update && apt-get install -y \
 
 # Install Zig (latest stable)
 ARG ZIG_VERSION=0.14.1
-RUN curl -LO https://ziglang.org/download/${ZIG_VERSION}/zig-linux-x86_64-${ZIG_VERSION}.tar.xz && \
-    tar -xf zig-linux-x86_64-${ZIG_VERSION}.tar.xz && \
-    mv zig-linux-x86_64-${ZIG_VERSION} /opt/zig && \
+RUN curl -LO https://ziglang.org/download/${ZIG_VERSION}/zig-x86_64-linux-${ZIG_VERSION}.tar.xz && \
+    tar -xf zig-x86_64-linux-${ZIG_VERSION}.tar.xz && \
+    mv zig-x86_64-linux-${ZIG_VERSION} /opt/zig && \
     ln -s /opt/zig/zig /usr/local/bin/zig && \
-    rm zig-linux-x86_64-${ZIG_VERSION}.tar.xz
+    rm zig-x86_64-linux-${ZIG_VERSION}.tar.xz
 
 # Install ZLS (Zig Language Server)
 RUN git clone https://github.com/zigtools/zls /opt/zls && \
