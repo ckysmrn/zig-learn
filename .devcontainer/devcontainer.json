@@ -3,5 +3,5 @@
   "name": "Zig Dev",
   "build": {
     "dockerfile": "Dockerfile"
-  },
+  }
 }
