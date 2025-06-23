@@ -5,12 +5,12 @@ FROM debian:bullseye-slim
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install dependencies
-RUN apt-get update && apt-get install -y \
-    curl git build-essential pkg-config \
-    ca-certificates libstdc++-dev \
-    cmake python3 python3-pip \
-    libxcb1-dev libx11-dev xz-utils \
-    && apt-get clean
+#RUN apt-get update && apt-get install -y \
+#    curl git build-essential pkg-config \
+#    ca-certificates libstdc++-dev \
+#    cmake python3 python3-pip \
+#    libxcb1-dev libx11-dev xz-utils \
+#    && apt-get clean
 
 # Install Zig (latest stable)
 #ARG ZIG_VERSION=0.14.1
