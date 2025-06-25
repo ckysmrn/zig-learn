@@ -15,9 +15,8 @@ RUN curl -LO https://ziglang.org/download/${ZIG_VERSION}/zig-linux-x86_64-${ZIG_
     ln -s /opt/zig/zig /usr/local/bin/zig && \
     rm zig-linux-x86_64-${ZIG_VERSION}.tar.xz
 
-RUN git clone https://github.com/zigtools/zls.git /opt/zls && \
+RUN git clone https://github.com/zigtools/zls.git --branch "0.14.0" /opt/zls && \
     cd /opt/zls && \
-	git checkout -b 0.14.0
     /opt/zig/zig build -Doptimize=ReleaseSsafe && \
     ln -s /opt/zls/zig-out/bin/zls /usr/local/bin/zls
 
