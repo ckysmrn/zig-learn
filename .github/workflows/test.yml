@@ -11,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout ZLS
-        uses: actions/checkout@v4
-        with:
-          repository: zigtools/zls
-          ref: "0.14.0"
-          path: zls
+      #- name: Checkout ZLS
+      #  uses: actions/checkout@v4
+      #  with:
+      #    repository: zigtools/zls
+      #    ref: "0.14.0"
+      #    path: zls
 
       - name: Install dependencies
         run: |
@@ -42,7 +42,8 @@ jobs:
 
       - name: Build ZLS with newly built Zig
         run: |
-          cd zls
+          git clone https://github.com/zigtools/zls.git --branch "0.14.0" /opt/zls && \
+          cd /opt/zls && \
           zig build -Doptimize=ReleaseSafe
 
       - name: Archive ZLS binary
