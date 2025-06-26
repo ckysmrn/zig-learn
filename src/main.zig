@@ -10,7 +10,7 @@ pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer {
         const d = gpa.deinit();
-        if(d == .leak) std.testing.expect(false) catch @panic("Cannot free gpa.\n")
+        if(d == .leak) std.testing.expect(false) catch @panic("Cannot free gpa.\n");
     }
     const allocator = gpa.allocator();
     const text = try allocator.dupe(u8, "text");
