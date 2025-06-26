@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+
+
+#git add ${1:=$G}
+#git commit -m ${2}
+#git push ${3} ${4}
+git add ${1:-"."}
+git commit -m ${2:-"Don't ask"}
+git push ${3:-"origin"} ${4:-"main"}

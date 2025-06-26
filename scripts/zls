@@ -1,0 +1,6 @@
+#!/bin/bash
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+: ${TCP_PORT:=9000}
+
+${DIR}/cmd "nohup socat TCP-LISTEN:${TCP_PORT},reuseaddr,fork EXEC:"zls" > /var/log/zls.log 2>&1 &"
