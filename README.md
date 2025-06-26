@@ -1,8 +1,8 @@
 This repo dedicated to learn [Zig](https://ziglang.org) and provide remote [Zls](https://github.com/zigtools/zls) in Github Codespace to use with neovim locally.
 
 
-
-- ```lua
+- [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
+ ```lua
 
 lspconfig.zls.setup{
   on_new_config = function (config)
@@ -17,9 +17,11 @@ lspconfig.zls.setup{
 ```
 
 
-- ```sh nohup gh cs ports forward 9000:9000 > $TMPDIR/ports.log 2>&1```
+- [cli.github.com](https://cli.github.com)
+```sh nohup gh cs ports forward 9000:9000 > $TMPDIR/ports.log 2>&1```
 
-- ```sh ./scripts/zls```
+- ./scripts/zls
+```sh ./scripts/zls```
 
 
 
