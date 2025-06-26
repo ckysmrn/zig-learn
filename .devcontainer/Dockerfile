@@ -27,7 +27,9 @@ RUN TMP_DIR=$(mktemp -d) && \
 	tar -xJ -C $TMP_DIR 2>&1 | tee -a $LOGFILE; \
 	mv $TMP_DIR/zls /usr/local/bin/zls | tee -a $LOGFILE
 
-RUN useradd -m devuser
+RUN
+
+RUN useradd -s /bin/bash -m devuser
 USER devuser
 WORKDIR /home/devuser
 
