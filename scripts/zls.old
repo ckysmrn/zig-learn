@@ -1,9 +1,0 @@
-#!/usr/bin/sh
-
-REPO=$(git config remote.origin.url | sed -e 's/https:\/\/github\.com\///' \
-	| sed -e 's/git@[^:]\+://' \
-	| sed -e 's/\.git$//'\
-)
-BASENAME=$(basename $REPO)
-: ${WORKDIR:="/workspaces/${BASENAME}"}
-gh cs ssh -R $REPO -- "cd $WORKDIR && git pull >/dev/null 2>&1 && nohup socat TCP-LISTEN:9000,reuseaddr,fork EXEC:\"zls\" > /var/log/zls.log 2>&1 &"
