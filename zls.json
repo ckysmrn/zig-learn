@@ -1,3 +1,7 @@
 {
+	"global_cache_dir": "/root/.cache/zls",
+	"global_config_dir": "/etc",            
+	"local_config_dir": "/root/.config",
+	"log_file": "/root/.cache/zls/zls.log"
 
 }
