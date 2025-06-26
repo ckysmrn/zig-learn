@@ -10,7 +10,7 @@ pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer gpa.deinit();
     const allocator = gpa.allocator();
-    const text = try allocator.alloc(u8, "text");
+    const text = try allocator.dupe(u8, "text");
     defer allocator.free(text);
     print("{}\n", .{text});
 
