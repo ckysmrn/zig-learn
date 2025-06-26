@@ -1,8 +1,3 @@
-
-% Macam-macam Allocator di Zig  
-% ChatGPT  
-% 2025  
-
 # 📘 Macam-macam Allocator di Zig
 
 Zig adalah bahasa yang memberi kontrol penuh terhadap memori, dan menyediakan berbagai jenis **allocator** untuk kebutuhan berbeda. Berikut adalah macam-macam allocator bawaan di Zig beserta contoh penggunaannya.
