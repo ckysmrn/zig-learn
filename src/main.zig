@@ -1,5 +1,9 @@
 
 test "lsp" {
+
+}
+
+pub fn main() !void {
     const std = @import("std");
     const print = std.debug.print;
     print("Hello world\n", .{});
@@ -10,11 +14,6 @@ test "lsp" {
     defer allocator.free(text);
     print("{}\n", .{text});
 
-
-}
-
-pub fn main() !void {
-    @import("std").debug.print("Hello World", .{});
 }
 
 
