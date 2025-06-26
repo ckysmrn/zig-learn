@@ -1,9 +1,13 @@
 #!/usr/bin/sh
 
-REPO=$(git config remote.origin.url | sed -e 's/https:\/\/github\.com\///' \
-	| sed -e 's/git@[^:]\+://' \
-	| sed -e 's/\.git$//'\
+REPO=$(git config remote.origin.url |
+	# https://github.com/usr/repo -> usr/repo
+	sed -e 's/https:\/\/github\.com\///' |
+	# git@mayhavesubdomain.github.com:usr/repo -> usr/repo
+	sed -e 's/git@[^:]\+://' |
+	# usr/repo.git -> usr/repo
+	sed -e 's/\.git$//'
 )
-BASENAME=$(basename $REPO)
+BASENAME=$(basename $REPO) # usr/repo -> repo
 : ${WORKDIR:="/workspaces/${BASENAME}"}
 gh cs ssh -R $REPO -- "cd $WORKDIR && git pull > /dev/null 2>&1 && $@"
