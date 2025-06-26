@@ -15,7 +15,7 @@ pub fn main() !void {
     const allocator = gpa.allocator();
     const text = try allocator.dupe(u8, "text");
     defer allocator.free(text);
-    print("{}\n", .{text});
+    print("{s}\n", .{text});
 
 }
 
