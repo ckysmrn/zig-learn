@@ -6,11 +6,11 @@ fn call_err() error{Something} !void {
     return error.Something;
 }
 fn test_defer() error{Something} !void {
-    defer print("1", .{});
-    defer print("2", .{});
+    errdefer print("1", .{});
+    errdefer print("2", .{});
     try call_err();
-    defer print("3", .{});
-    defer print("4", .{});
+    errdefer print("3", .{});
+    errdefer print("4", .{});
 }
 pub fn main() !void {
     print("Hello world\n", .{});
