@@ -3,7 +3,7 @@ const print = std.debug.print;
 
 
 fn call_err() error{Something} !void {
-    return .Something;
+    return error.Something;
 }
 fn test_defer() error{Something} !void {
     defer print("1", .{});
