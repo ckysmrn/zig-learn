@@ -8,7 +8,7 @@ fn call_err() error{Something} !void {
 fn test_defer() error{Something} !void {
     errdefer print("1", .{});
     errdefer print("2", .{});
-    try call_err();
+    //try call_err();
     errdefer print("3", .{});
     errdefer print("4", .{});
 }
