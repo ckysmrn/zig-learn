@@ -22,7 +22,7 @@ pub fn main() !void {
     const text = try allocator.dupe(u8, "text");
     defer allocator.free(text);
     print("{s}\n", .{text});
-    test_defer();
+    try test_defer();
 }
 
 
