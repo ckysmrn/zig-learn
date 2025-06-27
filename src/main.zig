@@ -8,7 +8,7 @@ fn call_err() error{Something} !void {
 fn test_defer() error{Something} !void {
     defer print("1", .{});
     defer print("2", .{});
-    .Something;
+    try .Something;
     defer print("3", .{});
     defer print("4", .{});
 }
