@@ -1,11 +1,14 @@
+const std = @import("std")
+const print = std.debug.print;
 
-test "lsp" {
-
+fn test_defer() error{Something} !void {
+    defer print("1", .{});
+    defer print("2", .{});
+    try Something;
+    defer print("3", .{});
+    defer print("4", .{});
 }
-
 pub fn main() !void {
-    const std = @import("std");
-    const print = std.debug.print;
     print("Hello world\n", .{});
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer {
@@ -15,6 +18,7 @@ pub fn main() !void {
     const text = try allocator.dupe(u8, "text");
     defer allocator.free(text);
     print("{s}\n", .{text});
+    test_defer()
 }
 
 
