@@ -1,10 +1,14 @@
-const std = @import("std")
+const std = @import("std");
 const print = std.debug.print;
 
+
+fn call_err() error{Something} !void {
+    return .Something;
+}
 fn test_defer() error{Something} !void {
     defer print("1", .{});
     defer print("2", .{});
-    try Something;
+    .Something;
     defer print("3", .{});
     defer print("4", .{});
 }
@@ -18,7 +22,7 @@ pub fn main() !void {
     const text = try allocator.dupe(u8, "text");
     defer allocator.free(text);
     print("{s}\n", .{text});
-    test_defer()
+    test_defer();
 }
 
 
