@@ -11,6 +11,7 @@ fn test_defer() error{Something} !void {
     //try call_err();
     defer print("3", .{});
     defer print("4", .{});
+    return;
 }
 pub fn main() !void {
     print("Hello world\n", .{});
