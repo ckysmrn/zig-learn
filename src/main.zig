@@ -23,7 +23,7 @@ pub fn main() !void {
     const text = try allocator.dupe(u8, "text");
     defer allocator.free(text);
     print("{s}\n", .{text});
-    const cursor1 = Cursor.new("one");
+    var cursor1 = Cursor.new("one");
     if (cursor1.next()) |c| {
         print("{}", .{c});
     }
