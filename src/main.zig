@@ -34,7 +34,7 @@ pub fn main() !void {
         print("{c}", .{c});
     }
     println("", .{});
-    println("{c}", .{cursor1.peek(1)});
+    println("{?}", .{cursor1.peek(1)});
     println("----", .{});
     var cursor2 = Cursor.new("two");
     while (cursor2.next()) |c| {
