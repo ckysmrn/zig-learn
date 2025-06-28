@@ -25,8 +25,8 @@ pub fn main() !void {
     print("{s}\n", .{text});
     print("-----", .{});
     var cursor1 = Cursor.new("one");
-    if (cursor1.next()) |c| {
-        print("{}", .{c});
+    while (cursor1.next()) |c| {
+        print("{c}", .{c});
     }
     //try test_defer();
 }
