@@ -22,11 +22,15 @@ lspconfig.zls.setup{
 
 - [cli.github.com](https://cli.github.com)
 
-```sh nohup gh cs ports forward 9000:9000 > $TMPDIR/ports.log 2>&1 &```
+```sh
+nohup gh cs ports forward 9000:9000 > $TMPDIR/ports.log 2>&1 &
+```
 
 - [./scripts/zls](./scripts/zls)
 
-```sh ./scripts/zls```
+```sh
+./scripts/zls
+```
 
 
 

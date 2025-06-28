@@ -27,3 +27,15 @@ pub fn main() !void {
 }
 
 
+const Cursor = struct {
+    source: []u8,
+    current: u32,
+    allocator: std.heap.DebugAllocator,
+
+    pub fn new(allocator: std.mem.Allocator, input: []const u8) !Cursor {
+
+        var self = .{
+            source: = try allocator.alloct();
+        }
+    }
+}
