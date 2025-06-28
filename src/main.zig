@@ -13,8 +13,13 @@ fn test_defer() error{Something} !void {
     defer print("4", .{});
     return;
 }
+
+fn println(comptime fmt: []const u8, args: anytype) void {
+    std.debug.print(fmt ++ "\n", args);
+}
+
 pub fn main() !void {
-    print("Hello world\n", .{});
+    println("Hello world", .{});
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer {
         _ = gpa.deinit();
@@ -22,12 +27,18 @@ pub fn main() !void {
     const allocator = gpa.allocator();
     const text = try allocator.dupe(u8, "text");
     defer allocator.free(text);
-    print("{s}\n", .{text});
-    print("-----", .{});
+    println("{s}", .{text});
+    println("-----", .{});
     var cursor1 = Cursor.new("one");
     while (cursor1.next()) |c| {
         print("{c}", .{c});
     }
+    println("----", .{});
+    var cursor2 = Cursor.new("two");
+    while (cursor2.next()) |c| {
+        print("{c}", .{c});
+    }
+
     //try test_defer();
 }
 
