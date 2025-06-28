@@ -23,19 +23,29 @@ pub fn main() !void {
     const text = try allocator.dupe(u8, "text");
     defer allocator.free(text);
     print("{s}\n", .{text});
+    const cursor1 = Cursor.new("one");
+    if (cursor1.next()) |c| {
+        print("{}", .{c});
+    }
     try test_defer();
 }
 
 
 const Cursor = struct {
-    source: []u8,
-    current: u32,
-    allocator: std.heap.DebugAllocator,
+    source: []const u8,
+    offset: u32,
 
-    pub fn new(allocator: std.mem.Allocator, input: []const u8) !Cursor {
+    pub fn new(input: []const u8) Cursor {
 
-        var self = .{
-            source: = try allocator.alloct();
-        }
+        return Cursor{
+            .source = input,
+            .offset = 0,
+        };
     }
-}
+
+    pub fn next(self: *Cursor) ?u8 {
+        const c = self.source[self.offset];
+        self.offset += 1;
+        return c;
+    }
+};
