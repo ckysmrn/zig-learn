@@ -46,6 +46,7 @@ const Cursor = struct {
 
     pub fn next(self: *Cursor) ?u8 {
         const c = self.source[self.offset];
+        if (c == null) return null;
         self.offset += 1;
         return c;
     }
