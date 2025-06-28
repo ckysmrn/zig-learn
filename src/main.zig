@@ -30,7 +30,7 @@ pub fn main() !void {
     println("{s}", .{text});
     println("-----", .{});
     var cursor1 = Cursor.new("one");
-    if (cursor1.peek(1)) |c| println("{c}", .{c});
+    if (cursor1.peek(0)) |c| println("{c}", .{c});
     while (cursor1.next()) |c| {
         print("{c}", .{c});
     }
