@@ -65,8 +65,8 @@ const Cursor = struct {
     }
 
     pub fn peek(self: *Cursor, i: u32) ?u8 {
-        i = i + self.offset;
-        if (self.offset >= self.source.len) return null;
-        self.source[i];
+        const j = i + self.offset;
+        if (j >= self.source.len) return null;
+        self.source[j];
     }
 };
