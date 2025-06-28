@@ -27,7 +27,7 @@ pub fn main() !void {
     if (cursor1.next()) |c| {
         print("{}", .{c});
     }
-    try test_defer();
+    //try test_defer();
 }
 
 
