@@ -33,6 +33,8 @@ pub fn main() !void {
     while (cursor1.next()) |c| {
         print("{c}", .{c});
     }
+    println("", .{});
+    println("{c}", .{cursor1.peek(1)});
     println("----", .{});
     var cursor2 = Cursor.new("two");
     while (cursor2.next()) |c| {
@@ -60,5 +62,11 @@ const Cursor = struct {
         const c = self.source[self.offset];
         self.offset += 1;
         return c;
+    }
+
+    pub fn peek(self: *Cursor, i: u32) ?u8 {
+        i = i + self.offset;
+        if (self.offset >= self.source.len) return null;
+        self.source[i];
     }
 };
