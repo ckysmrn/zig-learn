@@ -2,7 +2,7 @@
 
 const std = @import("std");
 const print = std.debug.print;
-const token = @import("token");
+const token = @import("token.zig");
 const Cursor = token.Cursor;
 
 
