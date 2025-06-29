@@ -17,7 +17,7 @@ pub fn main() !void {
     var allocator = gpa;
 
     var dbg : ?DbgAllocator = null;
-    if (std.builtin.OptimizeMode == .Debug) {
+    if (std.builtin.mode == .Debug) {
         dbg = DbgAllocator(Config);
         allocator = dbg.?.allocator();
     }
