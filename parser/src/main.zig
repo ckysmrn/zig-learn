@@ -16,7 +16,7 @@ pub fn main() !void {
         dbg_allocator = DebugAllocator{
             .backing_allocator = gpa,
         };
-        dbg_allocator.allocator();
+        dbg_allocator.?.allocator();
     } else {
         gpa;
     };
