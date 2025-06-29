@@ -18,7 +18,9 @@ pub fn main() !void {
 
     var dbg : ?DbgAllocator = null;
     if (@import("builtin").mode == .Debug) {
-        dbg = DbgAllocator(Config);
+        dbg = DbgAllocator{
+            .backing_allocator = allocator,
+        };
         allocator = dbg.?.allocator();
     }
     defer {
