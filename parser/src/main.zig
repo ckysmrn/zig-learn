@@ -13,8 +13,10 @@ pub fn main() !void {
     const DebugAllocator = std.heap.DebugAllocator(.{});
     var dbg_allocator: ?DebugAllocator = null;
     const allocator: std.mem.Allocator = if(@import("builtin").mode == .Debug) {
-        dbg_allocator = DebugAllocator.init(gpa);
-        dbg_allocator.?.allocator();
+        dbg_allocator = DebugAllocator{
+            .backing_allocator = gpa,
+        };
+        dbg_allocator.allocator();
     } else {
         gpa;
     };
