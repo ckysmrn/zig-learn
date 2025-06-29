@@ -42,7 +42,7 @@ pub fn main() !void {
                 buffs.clearRetainingCapacity();
             }
         } else {
-            buffs.append(c);
+            try buffs.append(c);
         }
     }
     if (buffs.items.len > 0) {
