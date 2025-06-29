@@ -1,10 +1,10 @@
-source: []const u8,
+source: [:0]const u8,
 current: usize,
 
 const Self = @This();
 
 
-pub inline fn fromSlice(source: []const u8) Self {
+pub inline fn fromSlice(source: [:0]const u8) Self {
     return Self {
         .source = source,
         .current = 0,

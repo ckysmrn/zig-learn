@@ -8,8 +8,41 @@ const Cursor = token.Cursor;
 
 
 pub fn main() !void {
-    var scnr = Cursor.fromSlice("hello");
+    var scnr = Cursor.fromSlice("hello world");
+    const gpa = std.heap.pageSize;
+    var dbg_allocator: ?std.heap.DebugAllocator = null;
+    const allocator: std.mem.Allocator = if(@import("builtin").mode == .Debug) {
+        dbg_allocator = std.heap.DebugAllocator.init(gpa);
+        dbg_allocator.?.allocator();
+    } else {
+        gpa;
+    };
+    defer {
+        if (dbg_allocator) |*d|{
+            const leaked = d.deinit();
+            if (leaked) {
+                print("Memory leak detected!\n", .{});
+            }
+        }
+    }
+    var words = std.ArrayList([]u8).init(allocator);
+    defer words.deinit();
+    var buffs = std.ArrayList(u8).init(allocator);
+    defer buffs.deinit();
     while (scnr.move()) |c| {
-        print("{c}\n", .{c});
+        if (c == ' ') {
+            if (buffs.items.len > 0) {
+                try words.append(try allocator.dupe(u8, buffs.items));
+                buffs.clearRetainingCapacity();
+            }
+        } else {
+            buffs.append(c);
+        }
+    }
+    if (buffs.items.len > 0) {
+        try words.append(try allocator.dupe(u8, buffs.items));
+    }
+    for (words.items) |item| {
+        std.debug.print("word: {s}\n", .{item});
     }
 }
