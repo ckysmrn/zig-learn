@@ -8,46 +8,26 @@ const Allocator = std.mem.Allocator;
 const DebugAllocatorConfig = std.heap.DebugAllocatorConfig;
 const DebugAllocator = std.heap.DebugAllocator;
 
-const AllocWrapper = struct {
-    debug: ?DebugAllocator(DebugAllocatorConfig),
-    allocator: Allocator,
-
-    pub fn init(
-        backing: Allocator,
-        config: DebugAllocatorConfig
-    ) AllocWrapper {
-        const Debug = DebugAllocator(@TypeOf(config));
-        var dbg: ?Debug = null;
-        var allocator: Allocator = backing;
-
-        if (@import("builtin").mode == .Debug) {
-            dbg = Debug{ .backing_allocator = backing };
-            allocator = dbg.allocator();
-        }
-        return AllocWrapper {
-            .allocator = allocator,
-            .debug = dbg,
-        };
-    }
-
-    pub fn deinit(self: *AllocWrapper) void {
-        if (self.debug) |*dbg| {
-            const leaked = dbg.deinit();
-            if (leaked) {
-                std.debug.print("Memory leak detected\n", .{});
-            }
-        }
-        return;
-    }
-};
+const Config = DebugAllocatorConfig{};
+const DbgAllocator = DebugAllocator(Config);
 
 pub fn main() !void {
     var scnr = Cursor.fromSlice("hello world");
     const gpa = std.heap.page_allocator;
+    var allocator = gpa;
 
-    const wrapper = AllocWrapper.init(gpa, .{});
-    defer wrapper.deinit();
-    const allocator = wrapper.allocator;
+    var dbg : ?DbgAllocator = null;
+    if (std.builtin.OptimizeMode == .Debug) {
+        dbg = DbgAllocator(Config);
+        allocator = dbg.?.allocator();
+    }
+    defer {
+        if(dbg) |*d| {
+            const leaked = d.deinit();
+            if (leaked)
+                std.debug.print("Memory leak detected.\n", .{});
+        }
+    }
 
     var words = std.ArrayList([]u8).init(allocator);
     defer words.deinit();
