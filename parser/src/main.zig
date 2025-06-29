@@ -26,7 +26,7 @@ pub fn main() !void {
     defer {
         if(dbg) |*d| {
             const leaked = d.deinit();
-            if (leaked)
+            if (leaked.leak)
                 std.debug.print("Memory leak detected.\n", .{});
         }
     }
