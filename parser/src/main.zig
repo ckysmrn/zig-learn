@@ -16,9 +16,9 @@ pub fn main() !void {
         dbg_allocator = DebugAllocator{
             .backing_allocator = gpa,
         };
-        dbg_allocator.?.allocator();
+        return dbg_allocator.?.allocator();
     } else {
-        gpa;
+        return gpa;
     };
     defer {
         if (dbg_allocator) |*d|{
