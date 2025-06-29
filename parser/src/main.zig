@@ -4,30 +4,50 @@ const std = @import("std");
 const print = std.debug.print;
 const token = @import("token.zig");
 const Cursor = token.Cursor;
+const Allocator = std.mem.Allocator;
+const DebugAllocatorConfig = std.heap.DebugAllocatorConfig
+const DebugAllocator = std.heap.DebugAllocator;
 
+const AllocWrapper = struct {
+    debug: ?DebugAllocator(DebugAllocatorConfig),
+    allocator: Allocator,
 
+    pub fn init(
+        backing: Allocator,
+        config: DebugAllocatorConfig
+    ) AllocWrapper {
+        const Debug = DebugAllocator(@TypeOf(config));
+        var dbg: ?Debug = null;
+        var allocator: Allocator = backing;
+
+        if (@import("builtin").mode == .Debug) {
+            dbg = Debug{ .backing_allocator = backing };
+            allocator = dbg.allocator();
+        }
+        return AllocWrapper {
+            .allocator = allocator,
+            .debug = dbg,
+        };
+    }
+
+    pub fn deinit(self: *AllocWrapper) {
+        if (self.debug) |*dbg| {
+            const leaked = dbg.deinit();
+            if (leaked) {
+                std.debug.print("Memory leak detected\n", .{});
+            }
+        }
+    }
+}
 
 pub fn main() !void {
     var scnr = Cursor.fromSlice("hello world");
     const gpa = std.heap.page_allocator;
-    const DebugAllocator = std.heap.DebugAllocator(.{});
-    var dbg_allocator: ?DebugAllocator = null;
-    const allocator: std.mem.Allocator = if(@import("builtin").mode == .Debug) {
-        dbg_allocator = DebugAllocator{
-            .backing_allocator = gpa,
-        };
-        return dbg_allocator.?.allocator();
-    } else {
-        return gpa;
-    };
-    defer {
-        if (dbg_allocator) |*d|{
-            const leaked = d.deinit();
-            if (leaked) {
-                print("Memory leak detected!\n", .{});
-            }
-        }
-    }
+
+    const wrapper = AllocWrapper.init(gpa, .{});
+    defer wrapper.deinit();
+    const allocator = wrapper.allocator;
+
     var words = std.ArrayList([]u8).init(allocator);
     defer words.deinit();
     var buffs = std.ArrayList(u8).init(allocator);
@@ -48,4 +68,5 @@ pub fn main() !void {
     for (words.items) |item| {
         std.debug.print("word: {s}\n", .{item});
     }
+
 }
