@@ -5,7 +5,7 @@ const print = std.debug.print;
 const token = @import("token.zig");
 const Cursor = token.Cursor;
 const Allocator = std.mem.Allocator;
-const DebugAllocatorConfig = std.heap.DebugAllocatorConfig
+const DebugAllocatorConfig = std.heap.DebugAllocatorConfig;
 const DebugAllocator = std.heap.DebugAllocator;
 
 const AllocWrapper = struct {
@@ -30,15 +30,16 @@ const AllocWrapper = struct {
         };
     }
 
-    pub fn deinit(self: *AllocWrapper) {
+    pub fn deinit(self: *AllocWrapper) void {
         if (self.debug) |*dbg| {
             const leaked = dbg.deinit();
             if (leaked) {
                 std.debug.print("Memory leak detected\n", .{});
             }
         }
+        return;
     }
-}
+};
 
 pub fn main() !void {
     var scnr = Cursor.fromSlice("hello world");
