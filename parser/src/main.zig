@@ -9,7 +9,7 @@ const Cursor = token.Cursor;
 
 pub fn main() !void {
     var scnr = Cursor.fromSlice("hello world");
-    const gpa = std.heap.pageSize;
+    const gpa = std.heap.page_allocator;
     const DebugAllocator = std.heap.DebugAllocator(.{});
     var dbg_allocator: ?DebugAllocator = null;
     const allocator: std.mem.Allocator = if(@import("builtin").mode == .Debug) {
