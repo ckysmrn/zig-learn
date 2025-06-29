@@ -32,7 +32,12 @@ pub fn main() !void {
     }
 
     var words = std.ArrayList([]u8).init(allocator);
-    defer words.deinit();
+    defer {
+        for (words.items) |elem| {
+            allocator.free(elem);
+        }
+        words.deinit();
+    }
     var buffs = std.ArrayList(u8).init(allocator);
     defer buffs.deinit();
     while (scnr.move()) |c| {
