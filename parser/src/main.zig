@@ -52,6 +52,7 @@ pub fn main() !void {
     }
     if (buffs.items.len > 0) {
         try words.append(try allocator.dupe(u8, buffs.items));
+        buffs.clearRetainingCapacity();
     }
     for (words.items) |item| {
         std.debug.print("word: {s}\n", .{item});
