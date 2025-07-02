@@ -23,13 +23,6 @@ pub fn main() !void {
         };
         allocator = dbg.?.allocator();
     }
-    defer {
-        if(dbg) |*d| {
-            const leaked = d.deinit();
-            if (leaked == .leak)
-                std.debug.print("Memory leak detected.\n", .{});
-        }
-    }
 
     var words = std.ArrayList([]u8).init(allocator);
     defer {
@@ -40,6 +33,13 @@ pub fn main() !void {
     }
     var buffs = std.ArrayList(u8).init(allocator);
     defer buffs.deinit();
+    defer {
+        if(dbg) |*d| {
+            const leaked = d.deinit();
+            if (leaked == .leak)
+                std.debug.print("Memory leak detected.\n", .{});
+        }
+    }
     while (scnr.move()) |c| {
         if (c == ' ') {
             if (buffs.items.len > 0) {
