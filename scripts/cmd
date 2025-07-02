@@ -3,6 +3,5 @@
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 . ${DIR}/env.sh
-echo $WORKDIR
 : ${WORKDIR:="/workspaces/${BASENAME}"}
-gh cs ssh -R $REPO -- "cd $WORKDIR && git pull > /dev/null 2>&1 && $@"
+gh cs ssh -R $REPO -- "cd $WORKDIR && git pull && $@"
