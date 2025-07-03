@@ -7,7 +7,7 @@ RUN apt-get update 2>&1 | tee -a $LOGFILE; \
     apt-get install -y  \
     curl git build-essential pkg-config cmake \
     python3 python3-pip xz-utils ca-certificates \
-    libxcb1-dev libx11-dev 2>&1 | tee -a $LOGFILE; \
+    libxcb1-dev libx11-dev socat supervisor 2>&1 | tee -a $LOGFILE; \
     apt-get clean 2>&1 | tee -a $LOGFILE; \
 	rm -rf /var/lib/apt/lists/* 2>&1 | tee -a $LOGFILE
 
@@ -34,3 +34,9 @@ USER devuser
 WORKDIR /home/devuser
 
 SHELL ["/bin/bash", "-c"]
+
+# Copy supervisor config (pastikan file ini ada di .devcontainer/supervisord.conf di repo kamu)
+COPY .devcontainer/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Set supervisor as container entrypoint
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
