@@ -30,8 +30,8 @@ RUN TMP_DIR=$(mktemp -d) && \
 RUN
 
 RUN useradd -s /bin/bash -m devuser
-USER devuser
-WORKDIR /home/devuser
+#USER devuser
+#WORKDIR /home/devuser
 
 SHELL ["/bin/bash", "-c"]
 
