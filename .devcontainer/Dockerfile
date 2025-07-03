@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
-ARG LOGFILE=/contimainer.log
+ARG LOGFILE=/container.log
 ARG ZIG_VERSION=0.14.0
 RUN apt-get update 2>&1 | tee -a $LOGFILE; \
     apt-get install -y  \
@@ -30,7 +30,7 @@ RUN TMP_DIR=$(mktemp -d) && \
 RUN
 
 RUN useradd -s /bin/bash -m devuser
-#USER devuser
-#WORKDIR /home/devuser
+USER devuser
+WORKDIR /home/devuser
 
 SHELL ["/bin/bash", "-c"]
