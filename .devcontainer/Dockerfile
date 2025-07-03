@@ -36,7 +36,7 @@ WORKDIR /home/devuser
 SHELL ["/bin/bash", "-c"]
 
 # Copy supervisor config (pastikan file ini ada di .devcontainer/supervisord.conf di repo kamu)
-COPY .devcontainer/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+#COPY .devcontainer/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Set supervisor as container entrypoint
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+#CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
