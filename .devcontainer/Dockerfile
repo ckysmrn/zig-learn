@@ -39,4 +39,4 @@ SHELL ["/bin/bash", "-c"]
 #COPY .devcontainer/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Set supervisor as container entrypoint
-#CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", ".devcontainer/supervisord.conf"]
